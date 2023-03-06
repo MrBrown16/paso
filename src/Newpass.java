@@ -14,27 +14,40 @@ public class Newpass {
         System.out.println("\n-----Új jelszó-----");
         System.out.print("Használat: ");
         String using = this.scanner.nextLine();
+        System.out.print("Felhasználónév: ");
+        String username = this.scanner.nextLine();
         System.out.print("Jelszó: ");
         String pass = this.scanner.nextLine();
         System.out.println("Folytatáshoz nyomjon egy Entert...");
-        appendToFile(using, pass);
+        appendToFile(using, username, pass);
     }
-    private void appendToFile(String using, String pass)  {
+    private void appendToFile(String using,String username, String pass)  {
         try {
-            tryAppendToFile(using, pass);
+            tryAppendToFile(using, username, pass);
         } catch (IOException e) {
             System.err.println("Hiba! A fájlba írás sikertelen!");
         }
     }
-    private void tryAppendToFile(String using, String pass) throws IOException {
-    
+    private void tryAppendToFile(String using,String username, String pass) throws IOException {
+        String key = this.getAppKey();
+        String cryptText = getCryptedText(pass, key);
         FileWriter fileWriter = new FileWriter(
             "data.txt", 
             Charset.forName("utf-8"),
             true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        String line = using + ":" + pass;
+        String line = using + ":" + username + ":" + cryptText;
         printWriter.println(line);
         printWriter.close();
+    }
+    private String getAppKey(){
+        Proper proper = new Proper();
+        String appKey = proper.readProper("AppKey");
+        return appKey;
+    }
+    private String getCryptedText(String plainText, String key){
+        Crypto crypto = new Crypto();
+        String cryptText = crypto.encrypt(plainText, key);
+        return cryptText;
     }
 }

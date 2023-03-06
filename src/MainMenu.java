@@ -25,6 +25,8 @@ public class MainMenu {
             selected = scanner.nextLine();
             if (selected.equals("1")) {
                 System.out.println("Megetekintés árnyékeljárás");
+                showpass showpass = new showpass();
+                showpass.getPasses();
                 scanner.nextLine();
             }else if (selected.equals("2")) {
                 Newpass newpass = new Newpass();
