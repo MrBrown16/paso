@@ -1,0 +1,4 @@
+TODO: a tárolt jelszót titkosítani kell
+TODO: a jelszavakat meg kell jeleníteni
+TODO: beállítások properties fájlba
+TODO: A beállítás fájlba a kulcs
